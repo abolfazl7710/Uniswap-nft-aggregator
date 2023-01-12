@@ -175,7 +175,7 @@ df3_query="""
 with main as(select
 DISTINCT project_name as collection,
 'Uniswap' as aggregator,
-sum(price_usd) as sales_volume
+sum(price_usd) as sales_vol
 from ethereum.core.ez_nft_sales 
 where ORIGIN_TO_ADDRESS = lower('0xef1c6e67703c7bd7107eed8303fbe6ec2554bf6b')
 group by 1,2
@@ -183,7 +183,7 @@ union
 select
 DISTINCT project_name as collection,
 'Gem' as aggregator,
-sum(price_usd) as sales_volume
+sum(price_usd) as sales_vol
 from ethereum.core.ez_nft_sales 
 where AGGREGATOR_NAME = 'Gem'
 and block_timestamp >= '2022-11-29'
@@ -192,7 +192,7 @@ union
 select
 DISTINCT project_name as collection,
 'Blur' as aggregator,
-sum(price_usd) as sales_volume
+sum(price_usd) as sales_vol
 from ethereum.core.ez_nft_sales 
 where AGGREGATOR_NAME = 'Blur'
 and block_timestamp >= '2022-11-29'
@@ -339,11 +339,11 @@ if len(options) > 0:
  st.subheader('Top 10 collection by volume(USD) of sale')
  cc1, cc2= st.columns([1, 1])
  with cc1:
-  fig = px.bar(df3, y='sales_volume', x='collection', color='aggregator', title='Top 10 collection by volume(USD) of sale')
+  fig = px.bar(df3, y='sales_vol', x='collection', color='aggregator', title='Top 10 collection by volume(USD) of sale')
   fig.update_layout(legend_title=None, legend_y=0.5)
   st.plotly_chart(fig, use_container_width=True, theme='streamlit')
  with cc2:
-  fig = px.pie(df3, values='sales_volume', names='collection', title='Top 10 collection by volume(USD) of sale')
+  fig = px.pie(df3, values='sales_vol', names='collection', title='Top 10 collection by volume(USD) of sale')
   fig.update_layout(legend_title=None, legend_y=0.5)
   fig.update_traces(textinfo='percent+label', textposition='inside')
   st.plotly_chart(fig, use_container_width=True, theme='streamlit')
